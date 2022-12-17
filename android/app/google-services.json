@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "423743761053",
+    "project_id": "fasela-6c09f",
+    "storage_bucket": "fasela-6c09f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423743761053:android:934fecea313495aef5c274",
+        "android_client_info": {
+          "package_name": "com.example.fasela_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423743761053-kvsqjcsbok1vc83oibcn28c20c8o42b2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRP_UJsxXVxOLs0tVooS9yL0OSCnuVOg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423743761053-kvsqjcsbok1vc83oibcn28c20c8o42b2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "423743761053-7dkjp7lt1d29hkv2e2il7kj0n12jsqj3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.faselaApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
