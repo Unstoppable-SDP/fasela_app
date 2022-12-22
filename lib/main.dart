@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'plantsList.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -210,6 +211,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             )),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: Material(
+              elevation: 5.0,
+              color: Colors.lightBlueAccent,
+              borderRadius: BorderRadius.circular(30.0),
+              child: MaterialButton(
+                minWidth: 200.0,
+                height: 42.0,
+                child: Text(
+                  'Plant list',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PlantList()),
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
