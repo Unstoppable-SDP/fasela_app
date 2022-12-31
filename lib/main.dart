@@ -218,10 +218,11 @@ class _MyHomePageState extends State<MyHomePage> {
               elevation: 5.0,
               color: Colors.lightBlueAccent,
               borderRadius: BorderRadius.circular(30.0),
-              child: MaterialButton(
+              child: Center(
+                  child: MaterialButton(
                 minWidth: 200.0,
                 height: 42.0,
-                child: Text(
+                child: const Text(
                   'Plant list',
                   style: TextStyle(color: Colors.white),
                 ),
@@ -231,7 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(builder: (context) => PlantList()),
                   );
                 },
-              ),
+              )),
             ),
           ),
         ],
