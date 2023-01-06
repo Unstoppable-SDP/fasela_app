@@ -49,10 +49,10 @@ class _PlantListState extends State<PlantList> {
                 final time = (todoList.data() as dynamic)['time'];
 
                 final messageWidget = MessageBubble(
-                  name: '$name',
-                  age: '$age',
-                  type: '$type',
-                  time: '$time',
+                  name: name,
+                  age: age,
+                  type: type,
+                  time: time,
                 );
 
                 todoWidgets.add(messageWidget);
@@ -92,9 +92,9 @@ class MessageBubble extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('$name',
+              Text(name,
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 30.0, color: Colors.black)),
+                  style: const TextStyle(fontSize: 30.0, color: Colors.black)),
             ],
           ),
           Material(
@@ -111,24 +111,24 @@ class MessageBubble extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('$age',
-                          style: TextStyle(
+                      child: Text(age,
+                          style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.black,
                           )),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('$type',
-                          style: TextStyle(
+                      child: Text(type,
+                          style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.black,
                           )),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('$time',
-                          style: TextStyle(
+                      child: Text(time,
+                          style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.black,
                           )),

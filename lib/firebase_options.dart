@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '423743761053',
     projectId: 'fasela-6c09f',
     authDomain: 'fasela-6c09f.firebaseapp.com',
+    databaseURL: 'https://fasela-6c09f-default-rtdb.firebaseio.com',
     storageBucket: 'fasela-6c09f.appspot.com',
     measurementId: 'G-DZ5Z0TZYPR',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:423743761053:android:934fecea313495aef5c274',
     messagingSenderId: '423743761053',
     projectId: 'fasela-6c09f',
+    databaseURL: 'https://fasela-6c09f-default-rtdb.firebaseio.com',
     storageBucket: 'fasela-6c09f.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:423743761053:ios:d03b9c1182b17b9af5c274',
     messagingSenderId: '423743761053',
     projectId: 'fasela-6c09f',
+    databaseURL: 'https://fasela-6c09f-default-rtdb.firebaseio.com',
     storageBucket: 'fasela-6c09f.appspot.com',
     iosClientId: '423743761053-7dkjp7lt1d29hkv2e2il7kj0n12jsqj3.apps.googleusercontent.com',
     iosBundleId: 'com.example.faselaApp',
@@ -76,6 +79,7 @@ class DefaultFirebaseOptions {
     appId: '1:423743761053:ios:d03b9c1182b17b9af5c274',
     messagingSenderId: '423743761053',
     projectId: 'fasela-6c09f',
+    databaseURL: 'https://fasela-6c09f-default-rtdb.firebaseio.com',
     storageBucket: 'fasela-6c09f.appspot.com',
     iosClientId: '423743761053-7dkjp7lt1d29hkv2e2il7kj0n12jsqj3.apps.googleusercontent.com',
     iosBundleId: 'com.example.faselaApp',
