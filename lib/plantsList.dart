@@ -46,13 +46,10 @@ class _PlantListState extends State<PlantList> {
 
                 final type = (todoList.data() as dynamic)['type'];
 
-                final time = (todoList.data() as dynamic)['time'];
-
                 final messageWidget = MessageBubble(
                   name: name,
                   age: age,
                   type: type,
-                  time: time,
                 );
 
                 todoWidgets.add(messageWidget);
@@ -73,14 +70,9 @@ class _PlantListState extends State<PlantList> {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble(
-      {required this.name,
-      required this.age,
-      required this.time,
-      required this.type});
+  MessageBubble({required this.name, required this.age, required this.type});
   final String name;
-  final String age;
-  final String time;
+  final int age;
   final String type;
 
   @override
@@ -111,7 +103,7 @@ class MessageBubble extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(age,
+                      child: Text(age.toString(),
                           style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.black,
@@ -120,14 +112,6 @@ class MessageBubble extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(type,
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(time,
                           style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.black,
