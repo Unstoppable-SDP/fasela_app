@@ -186,14 +186,14 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Center(
                 child: Material(
-              color: Colors.lightBlueAccent,
-              borderRadius: BorderRadius.circular(30.0),
+              color: Color(0xFFFDEAED),
+              borderRadius: BorderRadius.circular(20.0),
               child: MaterialButton(
                 minWidth: 200.0,
                 height: 42.0,
                 child: const Text(
                   'Create Plant',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
                 onPressed: () async {
                   _fireStore.collection('Plants').add({
@@ -211,51 +211,57 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: Material(
-              color: Colors.lightBlueAccent,
-              borderRadius: BorderRadius.circular(30.0),
-              child: Center(
-                  child: MaterialButton(
-                minWidth: 200.0,
-                height: 42.0,
-                child: const Text(
-                  'Plant list',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PlantList()),
-                  );
-                },
-              )),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: Material(
-              elevation: 5.0,
-              color: Colors.lightBlueAccent,
-              borderRadius: BorderRadius.circular(30.0),
-              child: Center(
-                  child: MaterialButton(
-                minWidth: 200.0,
-                height: 42.0,
-                child: const Text(
-                  'Plant condition',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PlantCondition()),
-                  );
-                },
-              )),
-            ),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Center(
+                    child: Material(
+                      color: Color.fromARGB(255, 216, 223, 246),
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: MaterialButton(
+                        minWidth: 150,
+                        height: 42.0,
+                        child: const Text(
+                          'Plant list',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PlantList()),
+                          );
+                        },
+                      ),
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  child: Center(
+                    child: Material(
+                      color: Color.fromARGB(255, 216, 223, 246),
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: MaterialButton(
+                        minWidth: 150,
+                        height: 42.0,
+                        child: const Text(
+                          'Plant condition',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PlantCondition()),
+                          );
+                        },
+                      ),
+                    ),
+                  )),
+            ],
+          )
         ],
       ),
     )));

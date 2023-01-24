@@ -3,7 +3,7 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
 
-exports.resetCreditsForFreeUsers = functions.pubsub
+exports.increasePlantAge = functions.pubsub
   .schedule("0 0 * * 0") //At 00:00 on Sunday.
   .onRun(async () => {
     let plantsrRef = db.collection("Plants").doc("wSaPwNbECIFCkPb1cStH");

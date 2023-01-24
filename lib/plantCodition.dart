@@ -54,7 +54,7 @@ class _PlantConditionState extends State<PlantCondition> {
                     ])),
                 Container(
                     margin: const EdgeInsets.all(10),
-                    padding: EdgeInsets.symmetric(vertical: 26),
+                    padding: const EdgeInsets.symmetric(vertical: 26),
                     height: 120,
                     width: 149,
                     decoration: BoxDecoration(
@@ -89,7 +89,7 @@ class _PlantConditionState extends State<PlantCondition> {
               children: [
                 Container(
                     margin: const EdgeInsets.all(10),
-                    padding: EdgeInsets.symmetric(vertical: 26),
+                    padding: const EdgeInsets.symmetric(vertical: 26),
                     height: 120,
                     width: 149,
                     decoration: BoxDecoration(
