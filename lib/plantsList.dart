@@ -15,8 +15,10 @@ class _PlantListState extends State<PlantList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Plants List'),
+        title: const Text('Plants List',
+            style: TextStyle(color: Color.fromARGB(255, 12, 12, 12))),
         centerTitle: true,
+        backgroundColor: Color(0xFFFDEAED),
       ),
       body: Column(
         children: [
@@ -37,20 +39,19 @@ class _PlantListState extends State<PlantList> {
                   ),
                 );
               }
-              final todoLists = snapshot.data!.docs;
+              final plants = snapshot.data!.docs;
 
-              for (var todoList in todoLists) {
-                final name = (todoList.data() as dynamic)['name'];
+              for (var plants in plants) {
+                final name = (plants.data() as dynamic)['name'];
 
-                final age = (todoList.data() as dynamic)['age'];
+                final age = (plants.data() as dynamic)['age'];
 
-                final type = (todoList.data() as dynamic)['type'];
+                final type = (plants.data() as dynamic)['type'];
+
+                final description = (plants.data() as dynamic)['description'];
 
                 final messageWidget = MessageBubble(
-                  name: name,
-                  age: age,
-                  type: type,
-                );
+                    name: name, age: age, type: type, description: description);
 
                 todoWidgets.add(messageWidget);
               }
@@ -70,10 +71,15 @@ class _PlantListState extends State<PlantList> {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.name, required this.age, required this.type});
+  MessageBubble(
+      {required this.name,
+      required this.age,
+      required this.type,
+      required this.description});
   final String name;
   final int age;
   final String type;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -82,44 +88,51 @@ class MessageBubble extends StatelessWidget {
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              Text(name,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(fontSize: 30.0, color: Colors.black)),
-            ],
-          ),
-          Material(
-              elevation: 5.0,
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(30.0),
-                  bottomRight: Radius.circular(30.0),
-                  bottomLeft: Radius.circular(30.0)),
-              color: Colors.lightBlueAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Container(
+              padding: const EdgeInsets.symmetric(vertical: 26),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(26),
+                color: Color(0xFFF1F4FF),
+              ),
+              child: Column(children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(age.toString(),
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(type,
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black,
-                          )),
-                    ),
+                    const Text("age: ", style: TextStyle(fontSize: 18)),
+                    Text(age.toString(),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600))
                   ],
                 ),
-              )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Text("Type: ", style: TextStyle(fontSize: 18)),
+                    Text(type,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600))
+                  ],
+                ),
+                const SizedBox(height: 5),
+                const Text("Description: ",
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 250,
+                      child: Text(description),
+                    ),
+                  ],
+                )
+              ])),
         ],
       ),
     );

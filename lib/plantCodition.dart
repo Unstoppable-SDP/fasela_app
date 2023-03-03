@@ -190,7 +190,7 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(conditions["waterLevel"],
+                          Text(conditions["waterLevel"].values.toList().first,
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
                           const Text(" mL",
