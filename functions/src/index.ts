@@ -1,22 +1,39 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-admin.initializeApp();
-const db = admin.firestore();
+admin.initializeApp(functions.config().firebase);
 
-exports.increasePlantAge = functions.pubsub
-  .schedule("0 0 * * 0") //At 00:00 on Sunday.
-  .onRun(async () => {
-    let plantsrRef = db.collection("Plants").doc("wSaPwNbECIFCkPb1cStH");
+exports.soilMoisture = functions.database
+  .ref("tomato/soilMoisture")
+  .onUpdate((evt: any) => {
+    const payload = {
+      notification: {
+        title: "VISITOR ALERT",
+        body: "The soilMoisture is 285 > ",
+        badge: "1",
+        sound: "default",
+      },
+    };
 
-    const plantData = await plantsrRef
-      .get()
-      .then((doc: any) => {
-        return doc.data();
-      })
-      .catch((err: any) => {
-        console.log("Error getting document", err);
+    return admin
+      .database()
+      .ref("fcm-token")
+      .once("value")
+      .then((allToken: any) => {
+        if (allToken.val()) {
+          console.log("token available");
+          const token = Object.keys(allToken.val() && evt.after.val() >= 285);
+          console.log(token);
+          admin
+            .messaging()
+            .sendToDevice(token, payload)
+            .then((response: any) => {
+              console.log("Successfully sent message:", response);
+            })
+            .catch((error: any) => {
+              console.log("Error sending message:", error);
+            });
+        } else {
+          console.log("No token available");
+        }
       });
-
-    const plants = plantsrRef.set({ ...plantData, age: plantData.age + 1 });
-    return plants;
   });

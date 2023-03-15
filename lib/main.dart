@@ -1,13 +1,18 @@
+import 'package:fasela_app/ForGroundLocalNotification.dart';
+import 'package:fasela_app/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'plantsList.dart';
 import 'plantCodition.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print(fcmToken);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -35,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // firebase
   final _fireStore = FirebaseFirestore.instance;
 
+  //TODO: add script to ask the user to add a new package -if needed-
+
   // form variables
   late String name;
   late String type;
@@ -45,6 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController descriptionTextController;
   late TextEditingController ageTextController;
 
+  Future<void> setupInteractedMessage() async {
+    FirebaseMessaging.instance.getInitialMessage();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
     typeTextController = TextEditingController();
     descriptionTextController = TextEditingController();
     ageTextController = TextEditingController();
+    setupInteractedMessage();
+  }
+
+  getToken() async {
+    // _realtime
+    //     .child('fcm-token/${await getFcmToken()}')
+    //     .set({"token": await getFcmToken()});
   }
 
   @override
@@ -66,8 +85,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
+    LocalNotification.initialize();
+    // For Forground State
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      LocalNotification.showNotification(message);
+    });
     return Scaffold(
         body: SingleChildScrollView(
             child: Padding(
