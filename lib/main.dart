@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'plantsList.dart';
 import 'plantCodition.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'DiseaseDetection.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -284,7 +285,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )),
             ],
-          )
+          ),
+
+          Row (children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  child: Center(
+                    child: Material(
+                      color: Color.fromARGB(255, 216, 223, 246),
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: MaterialButton(
+                        minWidth: 150,
+                        height: 42.0,
+                        child: const Text(
+                          'Disease Detection',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DiseaseDetection()),
+                          );
+                        },
+                      ),
+                    ),
+                  )),
+            ],)
         ],
       ),
     )));
