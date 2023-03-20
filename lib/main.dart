@@ -11,8 +11,6 @@ import 'DiseaseDetection.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print(fcmToken);
   runApp(MyApp());
 }
 
@@ -42,8 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
   // firebase
   final _fireStore = FirebaseFirestore.instance;
 
-  //TODO: add script to ask the user to add a new package -if needed-
-
   // form variables
   late String name;
   late String type;
@@ -65,13 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
     typeTextController = TextEditingController();
     descriptionTextController = TextEditingController();
     ageTextController = TextEditingController();
+    getToken();
     setupInteractedMessage();
   }
 
   getToken() async {
-    // _realtime
-    //     .child('fcm-token/${await getFcmToken()}')
-    //     .set({"token": await getFcmToken()});
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(fcmToken);
+    _fireStore.collection('Fctokens').doc(fcmToken).set({'token': fcmToken});
   }
 
   @override
@@ -286,8 +283,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
             ],
           ),
-
-          Row (children: [
+          Row(
+            children: [
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 16.0),
                   child: Center(
@@ -311,7 +308,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   )),
-            ],)
+            ],
+          )
         ],
       ),
     )));
