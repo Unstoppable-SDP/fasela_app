@@ -13,8 +13,7 @@ class _PlantConditionState extends State<PlantCondition> {
   Query dbRef = FirebaseDatabase.instance.ref();
   Widget listItem({required Map conditions}) {
     return Container(
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 17),
+        padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 25),
         child: SingleChildScrollView(
             child: Column(
           children: [
@@ -43,7 +42,7 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(conditions["airHumidity"].values.toList().first,
+                          Text(conditions["airHumidity"],
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
                           const Text("%",
@@ -70,11 +69,7 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                              conditions["airTemperature"]
-                                  .values
-                                  .toList()
-                                  .first,
+                          Text(conditions["airTemperature"],
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
                           const Text("°C",
@@ -105,7 +100,7 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(conditions["soilMoisture"].values.toList().first,
+                          Text(conditions["soilMoisture"],
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
                           const Text("%",
@@ -132,7 +127,7 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(conditions["soilSalinity"].values.toList().first,
+                          Text(conditions["soilSalinity"],
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
                           const Text("mg/L",
@@ -163,7 +158,7 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(conditions["soilEC"].values.toList().first,
+                          Text(conditions["soilEC"],
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
                           const Text("μS/cm",
@@ -190,12 +185,14 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(conditions["waterLevel"].values.toList().first,
+                          Text(
+                              conditions["waterLevel"] == "0"
+                                  ? "Low"
+                                  : conditions["waterLevel"] == "1"
+                                      ? "Medium"
+                                      : "Good",
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
-                          const Text(" mL",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600))
                         ],
                       )
                     ])),

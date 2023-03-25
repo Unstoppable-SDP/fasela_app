@@ -33,8 +33,8 @@ class _DiseaseDetectionState extends State<DiseaseDetection> {
       path: image.path,
       numResults: 11,
       threshold: 0,
-      imageMean: 0.0,
-      imageStd: 1.0,
+      imageMean: 0,
+      imageStd: 255
     );
     print(output);
     setState(() {
@@ -45,7 +45,7 @@ class _DiseaseDetectionState extends State<DiseaseDetection> {
 
   loadModel() async {
     await Tflite.loadModel(
-      model: 'assets/model.tflite',
+      model: 'assets/model_unquant.tflite',
       labels: 'assets/lables.txt',
     );
   }
@@ -92,7 +92,7 @@ class _DiseaseDetectionState extends State<DiseaseDetection> {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
-              backgroundColor: Color.fromARGB(255, 216, 223, 246),
+              backgroundColor: Color(0xFFF1F4FF),
               centerTitle: true,
               title: Text(
                 'Disease Detection',
@@ -104,13 +104,13 @@ class _DiseaseDetectionState extends State<DiseaseDetection> {
               ),
             ),
             body: Container(
-                color: Color.fromARGB(255, 216, 223, 246),
+                color: Color(0xFFF1F4FF),
                 padding: EdgeInsets.symmetric(horizontal: 35, vertical: 50),
                 child: Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(30),
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 189, 122, 132),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Column(
@@ -143,7 +143,7 @@ class _DiseaseDetectionState extends State<DiseaseDetection> {
                                           ? Text(
                                               'The toamto condition is  ${_output[0]['label']}',
                                               style: const TextStyle(
-                                                color: Colors.blue,
+                                                color: Color(0xFFFDEAED),
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w400,
                                               ),
