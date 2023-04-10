@@ -9,3 +9,4 @@ Spider_mites Two-spotted_spider_mite
 Target_Spot
 Tomato_mosaic_virus
 Tomato_Yellow_Leaf_Curl_Virus
+Tuta_absoluta

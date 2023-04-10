@@ -100,12 +100,14 @@ class _PlantConditionState extends State<PlantCondition> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(conditions["soilMoisture"],
+                          Text(
+                              int.parse(conditions["soilMoisture"]) > 540
+                                  ? "Dry"
+                                  : int.parse(conditions["soilMoisture"]) > 470
+                                      ? "Normal"
+                                      : "Wet",
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w600)),
-                          const Text("%",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600))
                         ],
                       )
                     ])),
