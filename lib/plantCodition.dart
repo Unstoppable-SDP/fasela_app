@@ -1,6 +1,7 @@
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'DiseaseDetection.dart';
 
 class PlantCondition extends StatefulWidget {
   const PlantCondition({super.key});
@@ -200,6 +201,34 @@ class _PlantConditionState extends State<PlantCondition> {
                     ])),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: Center(
+                      child: Material(
+                        color: Color.fromARGB(255, 216, 223, 246),
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: MaterialButton(
+                          minWidth: 300,
+                          height: 42.0,
+                          child: const Text(
+                            'Disease Detection',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          ),
+                          onPressed: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DiseaseDetection()),
+                            );
+                          },
+                        ),
+                      ),
+                    )),
+              ],
+            )
           ],
         )));
   }

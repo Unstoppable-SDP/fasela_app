@@ -1,12 +1,8 @@
-import 'package:fasela_app/ForGroundLocalNotification.dart';
-import 'package:fasela_app/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'plantsList.dart';
+import 'AddPlant.dart';
 import 'plantCodition.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'DiseaseDetection.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,298 +16,186 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Fasela',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: PlantList(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class PlantList extends StatefulWidget {
+  PlantList({super.key});
+
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _PlantListState createState() => _PlantListState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  // firebase
+class _PlantListState extends State<PlantList> {
   final _fireStore = FirebaseFirestore.instance;
-
-  // form variables
-  late String name;
-  late String type;
-  late String description;
-  late int age;
-  late TextEditingController nameTextController;
-  late TextEditingController typeTextController;
-  late TextEditingController descriptionTextController;
-  late TextEditingController ageTextController;
-
-  Future<void> setupInteractedMessage() async {
-    FirebaseMessaging.instance.getInitialMessage();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    nameTextController = TextEditingController();
-    typeTextController = TextEditingController();
-    descriptionTextController = TextEditingController();
-    ageTextController = TextEditingController();
-    getToken();
-    setupInteractedMessage();
-  }
-
-  getToken() async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    print(fcmToken);
-    _fireStore.collection('Fctokens').doc(fcmToken).set({'token': fcmToken});
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
-    // This also removes the _printLatestValue listener.
-    nameTextController.dispose();
-    typeTextController.dispose();
-    descriptionTextController.dispose();
-    ageTextController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    LocalNotification.initialize();
-    // For Forground State
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      LocalNotification.showNotification(message);
-    });
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Padding(
-      padding: const EdgeInsets.all(37.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(
+        title: const Text('Plants List',
+            style: TextStyle(color: Color.fromARGB(255, 12, 12, 12))),
+        centerTitle: true,
+        backgroundColor: Color(0xFFFDEAED),
+      ),
+      body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 26),
-            child: Text(
-              'Add New Plant',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 48,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          const Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text(
-                "Plant Name",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              )),
-          TextField(
-            controller: nameTextController,
-            onChanged: (value) {
-              name = value;
-            },
-            decoration: const InputDecoration(
-              hintText: 'Name',
-              alignLabelWithHint: true,
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 18.0,
-          ),
-          const Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text(
-                "Type",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              )),
-          TextField(
-            controller: typeTextController,
-            onChanged: (value) {
-              type = value;
-            },
-            decoration: const InputDecoration(
-              hintText: 'Type',
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 18.0,
-          ),
-          const Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text(
-                "Age (in week)",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              )),
-          TextField(
-            controller: ageTextController,
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              age = int.parse(value);
-            },
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(10),
-              hintText: 'Age',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 18.0,
-          ),
-          const Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text(
-                "Description",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              )),
-          TextField(
-            controller: descriptionTextController,
-            onChanged: (value) {
-              description = value;
-            },
-            maxLines: 5,
-            decoration: const InputDecoration(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              hintText: 'Description',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-            ),
-          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Center(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: Align(
+                alignment: Alignment.centerLeft,
                 child: Material(
-              color: Color(0xFFFDEAED),
-              borderRadius: BorderRadius.circular(20.0),
-              child: MaterialButton(
-                minWidth: 200.0,
-                height: 42.0,
-                child: const Text(
-                  'Create Plant',
-                  style: TextStyle(color: Colors.black),
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: MaterialButton(
+                    minWidth: 10,
+                    height: 10,
+                    child: const Text(
+                      '+',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
+                    ),
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddPlant()),
+                      );
+                    },
+                  ),
+                )),
+          ),
+          StreamBuilder<QuerySnapshot>(
+            ///
+            stream: _fireStore
+                .collection('Plants')
+                .orderBy('created', descending: false)
+                .snapshots(),
+
+            ///flutter aysnc snapshot
+            builder: (context, snapshot) {
+              List<MessageBubble> todoWidgets = [];
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.lightBlueAccent,
+                  ),
+                );
+              }
+              final plants = snapshot.data!.docs;
+
+              for (var plants in plants) {
+                final name = (plants.data() as dynamic)['name'];
+
+                final age = (plants.data() as dynamic)['age'];
+
+                final type = (plants.data() as dynamic)['type'];
+
+                final description = (plants.data() as dynamic)['description'];
+
+                final messageWidget = MessageBubble(
+                    name: name, age: age, type: type, description: description);
+
+                todoWidgets.add(messageWidget);
+              }
+
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(children: todoWidgets),
                 ),
-                onPressed: () async {
-                  _fireStore.collection('Plants').add({
-                    'name': name,
-                    'type': type,
-                    'description': description,
-                    'age': age,
-                    'created': Timestamp.now(),
-                  });
-                  nameTextController.clear();
-                  typeTextController.clear();
-                  descriptionTextController.clear();
-                  ageTextController.clear();
-                },
-              ),
-            )),
+              );
+            },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Center(
-                    child: Material(
-                      color: Color.fromARGB(255, 216, 223, 246),
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: MaterialButton(
-                        minWidth: 150,
-                        height: 42.0,
-                        child: const Text(
-                          'Plant list',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        onPressed: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PlantList()),
-                          );
-                        },
-                      ),
-                    ),
-                  )),
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Center(
-                    child: Material(
-                      color: Color.fromARGB(255, 216, 223, 246),
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: MaterialButton(
-                        minWidth: 150,
-                        height: 42.0,
-                        child: const Text(
-                          'Plant condition',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        onPressed: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PlantCondition()),
-                          );
-                        },
-                      ),
-                    ),
-                  )),
-            ],
-          ),
-          Row(
-            children: [
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Center(
-                    child: Material(
-                      color: Color.fromARGB(255, 216, 223, 246),
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: MaterialButton(
-                        minWidth: 150,
-                        height: 42.0,
-                        child: const Text(
-                          'Disease Detection',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        onPressed: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DiseaseDetection()),
-                          );
-                        },
-                      ),
-                    ),
-                  )),
-            ],
-          )
         ],
       ),
-    )));
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  MessageBubble(
+      {required this.name,
+      required this.age,
+      required this.type,
+      required this.description});
+  final String name;
+  final int age;
+  final String type;
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              padding: const EdgeInsets.symmetric(vertical: 26),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(26),
+                color: Color(0xFFF1F4FF),
+              ),
+              child: MaterialButton(
+                  onPressed: () async {
+                    if (name.toLowerCase() == "tomato")
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PlantCondition()),
+                      );
+                  },
+                  child: Column(children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text("age: ", style: TextStyle(fontSize: 18)),
+                        Text(age.toString(),
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600))
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text("Type: ", style: TextStyle(fontSize: 18)),
+                        Text(type,
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600))
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    const Text("Description: ",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 250,
+                          child: Text(description),
+                        ),
+                      ],
+                    )
+                  ]))),
+        ],
+      ),
+    );
   }
 }

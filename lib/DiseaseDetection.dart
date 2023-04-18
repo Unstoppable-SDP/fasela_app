@@ -60,12 +60,12 @@ class _DiseaseDetectionState extends State<DiseaseDetection> {
     print("height");
     print(decodedImage.height);
 
-    var output = await Tflite.runModelOnImage(
-        path: image.path,
-        imageMean: 127.5,
-        imageStd: 127.5,
-        numResults: 11,
-        threshold: 0.05);
+    // var output = await Tflite.runModelOnImage(
+    //     path: image.path,
+    //     imageMean: 127.5,
+    //     imageStd: 127.5,
+    //     numResults: 11,
+    //     threshold: 0.05);
 
     final dio = Dio();
     FormData data = FormData.fromMap({
@@ -101,26 +101,26 @@ class _DiseaseDetectionState extends State<DiseaseDetection> {
       print(e);
     });
 
-    setState(() {
-      _output = output!;
-      _loading = false;
-    });
+    // setState(() {
+    //   _output = output!;
+    //   _loading = false;
+    // });
 
-    if (assign != true) {
-      if (_output[0]["label"] == 'healthy') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HealthyPlant(image: _image)),
-        );
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  DiseaseDetailScreen(_output[0]["label"].toString(), _image)),
-        );
-      }
-    }
+    // if (assign != true) {
+    //   if (_output[0]["label"] == 'healthy') {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => HealthyPlant(image: _image)),
+    //     );
+    //   } else {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (context) =>
+    //               DiseaseDetailScreen(_output[0]["label"].toString(), _image)),
+    //     );
+    //   }
+    // }
   }
 
   loadModel() async {

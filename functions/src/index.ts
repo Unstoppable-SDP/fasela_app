@@ -23,7 +23,7 @@ exports.soilSalinityFunction = functions.database
       },
     };
     const allToken = [
-      "dWctyJ1lSK-6ljP004GBER:APA91bGD1j8_AcEgH4uRXKjA_heNV-e_H1TuLL7ihfvLYnZr8DUCI1o-UXTJxnatRb-bhTYI0VcW-TpR4HFwnP01vlFGmJiSgCtwCfIUy8sSlNDDmSOANyapaGv2j1YWNqykGRlll-dB",
+      "dYT3d87aSd62JLzHGHvMg1:APA91bGCOECkUyG4fjoC0XzyW1hyU4f4Io_Gz_9C16dwsatPjGmjET0nn3kmpAd9GYh996HPttUjmnOwp7li3hwYgiTxCC8H2RONxe2Ra2cEqt6oVO6qrMNmdE1w2-ePhVtHmttJU7OG",
     ];
 
     console.log("token available");
@@ -69,7 +69,7 @@ exports.waterLevel = functions.database
       },
     };
     const allToken = [
-      "dWctyJ1lSK-6ljP004GBER:APA91bGD1j8_AcEgH4uRXKjA_heNV-e_H1TuLL7ihfvLYnZr8DUCI1o-UXTJxnatRb-bhTYI0VcW-TpR4HFwnP01vlFGmJiSgCtwCfIUy8sSlNDDmSOANyapaGv2j1YWNqykGRlll-dB",
+      "dYT3d87aSd62JLzHGHvMg1:APA91bGCOECkUyG4fjoC0XzyW1hyU4f4Io_Gz_9C16dwsatPjGmjET0nn3kmpAd9GYh996HPttUjmnOwp7li3hwYgiTxCC8H2RONxe2Ra2cEqt6oVO6qrMNmdE1w2-ePhVtHmttJU7OG",
     ];
     console.log("token available");
     console.log(prevValue);
